@@ -39,75 +39,56 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       )
     }
-    const linkedinResponse = await openai.chat.completions.create({
-      model: "gpt-4",
-      messages: [
-        {
-          role: "system",
-          content: "You are a professional LinkedIn content writer. Create a polished, professional post that showcases expertise and thought leadership."
-        },
-        {
-          role: "user",
-          content: text
-        }
-      ],
-      max_tokens: 200,
-      temperature: 0.7
-    })
+    const systemPrompt = `You are an expert social media strategist and copywriter. Transform user input into platform-specific posts that sound natural and authentic to each platform's audience and culture.
 
-    const twitterResponse = await openai.chat.completions.create({
-      model: "gpt-4",
-      messages: [
-        {
-          role: "system",
-          content: "You are a punchy Twitter content writer. Create a concise, engaging tweet with strong hooks and calls to action."
-        },
-        {
-          role: "user",
-          content: text
-        }
-      ],
-      max_tokens: 100,
-      temperature: 1.2
-    })
+CRITICAL: Return ONLY valid JSON with NO markdown, NO code blocks, NO backticks. Just raw JSON.`
 
-    const instagramResponse = await openai.chat.completions.create({
+    const userPrompt = `Transform this idea into 4 platform-specific posts that sound like they were written by a real person, not AI.
+
+INPUT: "${text}"
+
+OUTPUT RULES (VERY IMPORTANT - Follow exactly):
+
+1. LINKEDIN - Professional but human, insightful, 2-3 short paragraphs max, NO hashtag overload, authoritative but approachable
+2. X/TWITTER - Punchy hook first, max 280 chars OR a 2-3 tweet thread with strong flow, high engagement
+3. INSTAGRAM - Aesthetic and engaging, include emojis naturally, 8-12 relevant hashtags at end, personal tone
+4. TIKTOK - Script format with [brackets for actions], hook in first 5 words to stop scrolls, conversational and fast-paced, 30-60 seconds when read aloud
+
+Return ONLY this JSON format (no markdown, no code blocks, no extra text):
+{
+  "linkedin": "...",
+  "twitter": "...",
+  "instagram": "...",
+  "tiktok": "..."
+}`
+
+    const response = await openai.chat.completions.create({
       model: "gpt-4",
       messages: [
         {
           role: "system",
-          content: "You are an aesthetic Instagram content writer. Create a visually appealing caption with emojis and hashtags."
+          content: systemPrompt
         },
         {
           role: "user",
-          content: text
+          content: userPrompt
         }
       ],
-      max_tokens: 150,
+      max_tokens: 1200,
       temperature: 0.8
     })
 
-    const tiktokResponse = await openai.chat.completions.create({
-      model: "gpt-4",
-      messages: [
-        {
-          role: "system",
-          content: "You are a TikTok script writer. Create an engaging script with strong hooks, pacing, and calls to action."
-        },
-        {
-          role: "user",
-          content: text
-        }
-      ],
-      max_tokens: 300,
-      temperature: 1.0
-    })
-
-    const result = {
-      linkedin: linkedinResponse.choices[0].message.content,
-      twitter: twitterResponse.choices[0].message.content,
-      instagram: instagramResponse.choices[0].message.content,
-      tiktok: tiktokResponse.choices[0].message.content
+    let result
+    try {
+      const responseText = response.choices[0].message.content || ''
+      const jsonMatch = responseText.match(/\{[\s\S]*\}/)
+      result = JSON.parse(jsonMatch ? jsonMatch[0] : responseText)
+    } catch (parseError) {
+      console.error('JSON parse error:', parseError)
+      return NextResponse.json(
+        { error: 'Failed to parse generated content. Please try again.' },
+        { status: 500 }
+      )
     }
 
     // Save post and increment credits

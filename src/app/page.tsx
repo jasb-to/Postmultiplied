@@ -10,23 +10,23 @@ import { ArrowRight, Sparkles, Zap, Users, Gauge } from 'lucide-react'
 const features = [
   {
     icon: Sparkles,
-    title: 'AI-Powered Content',
-    description: 'Transform your ideas into platform-perfect posts using advanced AI'
+    title: 'Sounds Like YOU',
+    description: 'Each post reads authentically on every platform—not generic AI fluff'
   },
   {
     icon: Zap,
-    title: 'Instant Generation',
-    description: 'Get LinkedIn, X, Instagram, and TikTok content in seconds'
+    title: 'See Before You Post',
+    description: 'Preview exactly how your content will look on LinkedIn, X, Instagram, and TikTok'
   },
   {
     icon: Users,
-    title: 'Optimized for Each Platform',
-    description: 'Each post is tailored to the unique voice and style of its platform'
+    title: '1 Idea, 4 Posts in 10 Seconds',
+    description: 'Turn a single thought into platform-optimized content instantly'
   },
   {
     icon: Gauge,
-    title: 'Track Your Usage',
-    description: 'Monitor your credit usage and plan your content strategy'
+    title: 'Track What Matters',
+    description: 'Monitor your generation usage and optimize your content strategy'
   }
 ]
 
@@ -143,7 +143,70 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Features Section */}
+      {/* Before/After Section */}
+      <section className="py-20 px-6 border-t border-purple-500/10">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl font-bold mb-4">Watch Your Content Transform</h2>
+            <p className="text-xl text-foreground/60">
+              From raw idea to platform-perfect posts
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-12">
+            {/* Before */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+            >
+              <h3 className="text-xl font-bold mb-6 text-foreground/80">Your Raw Idea</h3>
+              <div className="bg-background/40 backdrop-blur-xl border border-purple-500/20 rounded-xl p-6">
+                <p className="text-foreground/70 leading-relaxed">
+                  "AI is changing how we work. It's making things faster but people worry about losing jobs. Companies need to think about how to use it responsibly while helping employees adapt."
+                </p>
+              </div>
+            </motion.div>
+
+            {/* After */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              viewport={{ once: true }}
+            >
+              <h3 className="text-xl font-bold mb-6 text-cyan-400">PostMultiplied Output</h3>
+              <div className="space-y-4">
+                <div className="bg-gradient-to-br from-blue-600/20 to-blue-600/10 border border-blue-500/30 rounded-lg p-4">
+                  <p className="text-xs font-semibold text-blue-400 mb-2">LinkedIn</p>
+                  <p className="text-sm text-foreground/80 leading-relaxed">
+                    AI isn't about replacing people—it's about amplifying what they do best. The real question leaders should ask isn't "how do we automate?" but "how do we transform?" Those who invest in upskilling their teams will find AI becomes a force multiplier, not a threat.
+                  </p>
+                </div>
+                <div className="bg-gradient-to-br from-black/40 to-gray-800/40 border border-gray-500/30 rounded-lg p-4">
+                  <p className="text-xs font-semibold text-gray-400 mb-2">X/Twitter</p>
+                  <p className="text-sm text-foreground/80 leading-relaxed">
+                    AI replaces tasks, not people. The companies winning at this? They're reskilling teams, not cutting them. Future of work isn't AI vs humans—it's humans + AI. 🚀
+                  </p>
+                </div>
+                <div className="bg-gradient-to-br from-pink-600/20 to-pink-600/10 border border-pink-500/30 rounded-lg p-4">
+                  <p className="text-xs font-semibold text-pink-400 mb-2">Instagram</p>
+                  <p className="text-sm text-foreground/80 leading-relaxed">
+                    AI isn't taking jobs, it's taking shortcuts 💡 The real advantage? Companies brave enough to upskill their teams while automating the tedious stuff. The future belongs to those who learn alongside their tools 🚀 #AI #FutureOfWork #Innovation
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
       <section className="py-20 px-6 border-t border-purple-500/10">
         <div className="max-w-6xl mx-auto">
           <motion.div

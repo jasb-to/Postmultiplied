@@ -47,6 +47,7 @@ export default function DashboardPage() {
     }
 
     setIsGenerating(true)
+    setResults(null) // Clear previous results to show skeleton
     try {
       const response = await fetch('/api/generate', {
         method: 'POST',
@@ -62,7 +63,7 @@ export default function DashboardPage() {
       const data = await response.json()
       setResults(data)
       setInput('')
-      toast.success('Posts generated! 🎉')
+      toast.success('✨ Generated')
       
       // Refresh user data to get updated credits
       mutate('/api/user/profile')

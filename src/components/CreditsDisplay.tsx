@@ -35,12 +35,14 @@ export function CreditsDisplay({ used, limit, plan }: CreditsDisplayProps) {
       <div className="relative bg-background/60 backdrop-blur-xl border border-purple-500/20 rounded-xl p-6">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h3 className="text-sm font-semibold text-foreground/70">Credits</h3>
+            <h3 className="text-sm font-semibold text-foreground/70">Generations</h3>
             <p className="text-xs text-foreground/50 mt-0.5">{planLabel[plan]}</p>
           </div>
           <div className={`flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r ${planColor[plan]} rounded-full`}>
             <Zap className="w-4 h-4 text-white" />
-            <span className="text-sm font-semibold text-white">{limit - used} left</span>
+            <span className="text-sm font-semibold text-white">
+              {limit - used === 0 ? 'Upgrade' : `${limit - used} ${limit - used === 1 ? 'left' : 'left'}`}
+            </span>
           </div>
         </div>
 
@@ -63,9 +65,19 @@ export function CreditsDisplay({ used, limit, plan }: CreditsDisplayProps) {
           <motion.div
             initial={{ opacity: 0, y: -5 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mt-4 p-3 bg-red-500/10 border border-red-500/30 rounded-lg"
+            className="mt-4 p-3 bg-amber-500/10 border border-amber-500/30 rounded-lg"
           >
-            <p className="text-xs text-red-400">No credits remaining. Upgrade to continue generating.</p>
+            <p className="text-xs text-amber-400 font-semibold">All generations used. Upgrade to continue!</p>
+          </motion.div>
+        )}
+
+        {limit - used === 1 && (
+          <motion.div
+            initial={{ opacity: 0, y: -5 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mt-4 p-3 bg-purple-500/10 border border-purple-500/30 rounded-lg"
+          >
+            <p className="text-xs text-purple-400 font-semibold">1 generation left. Time to upgrade?</p>
           </motion.div>
         )}
       </div>
