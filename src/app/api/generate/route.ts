@@ -1,14 +1,44 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { auth } from '@clerk/nextjs/server'
 import OpenAI from 'openai'
+import { checkCreditsAvailable, savePost, incrementCreditsUsed, createUserIfNotExists } from '@/lib/db'
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 })
 
 export async function POST(request: NextRequest) {
-  const { text } = await request.json()
-
   try {
+    const { userId, sessionClaims } = await auth()
+
+    if (!userId) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      )
+    }
+
+    // Ensure user exists in database
+    const email = sessionClaims?.email as string || 'unknown'
+    await createUserIfNotExists(userId, email)
+
+    // Check if user has credits
+    const hasCredits = await checkCreditsAvailable(userId)
+    if (!hasCredits) {
+      return NextResponse.json(
+        { error: 'Insufficient credits. Upgrade your plan to generate more content.' },
+        { status: 429 }
+      )
+    }
+
+    const { text } = await request.json()
+
+    if (!text || text.trim().length === 0) {
+      return NextResponse.json(
+        { error: 'Text input is required' },
+        { status: 400 }
+      )
+    }
     const linkedinResponse = await openai.chat.completions.create({
       model: "gpt-4",
       messages: [
@@ -73,12 +103,23 @@ export async function POST(request: NextRequest) {
       temperature: 1.0
     })
 
-    return NextResponse.json({
+    const result = {
       linkedin: linkedinResponse.choices[0].message.content,
       twitter: twitterResponse.choices[0].message.content,
       instagram: instagramResponse.choices[0].message.content,
       tiktok: tiktokResponse.choices[0].message.content
-    })
+    }
+
+    // Save post and increment credits
+    try {
+      await savePost(userId, text, result)
+      await incrementCreditsUsed(userId)
+    } catch (dbError) {
+      console.error('Error saving post:', dbError)
+      // Still return the generated content even if saving fails
+    }
+
+    return NextResponse.json(result)
   } catch (error) {
     console.error('Error generating content:', error)
     return NextResponse.json(
