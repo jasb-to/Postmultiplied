@@ -1,6 +1,6 @@
 'use client'
 
-import { Linkedin, Twitter, Instagram, Music2, Copy, Check, Share2, Loader2 } from 'lucide-react'
+import { Linkedin, Twitter, Instagram, Music2, Copy, Check, Share2, RotateCcw } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { toast } from 'sonner'
@@ -13,6 +13,7 @@ interface ResultsTabsProps {
     tiktok?: string
   } | null
   isLoading?: boolean
+  onRegenerate?: (platform: string) => void
 }
 
 const platforms = [
@@ -33,7 +34,7 @@ function SkeletonLoader() {
   )
 }
 
-export function ResultsTabs({ results, isLoading }: ResultsTabsProps) {
+export function ResultsTabs({ results, isLoading, onRegenerate }: ResultsTabsProps) {
   const [activeTab, setActiveTab] = useState('linkedin')
   const [copied, setCopied] = useState(false)
   const [copiedAll, setCopiedAll] = useState(false)
@@ -153,6 +154,16 @@ export function ResultsTabs({ results, isLoading }: ResultsTabsProps) {
                     Copy All
                   </>
                 )}
+              </motion.button>
+
+              <motion.button
+                onClick={() => onRegenerate?.(activeTab)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="flex items-center gap-2 px-4 py-2 bg-purple-600/20 hover:bg-purple-600/30 border border-purple-500/30 rounded-lg transition-colors"
+              >
+                <RotateCcw className="w-4 h-4" />
+                Regenerate {platforms.find(p => p.key === activeTab)?.label}
               </motion.button>
 
               <motion.button

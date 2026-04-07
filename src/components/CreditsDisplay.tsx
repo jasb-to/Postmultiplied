@@ -65,9 +65,9 @@ export function CreditsDisplay({ used, limit, plan }: CreditsDisplayProps) {
           <motion.div
             initial={{ opacity: 0, y: -5 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mt-4 p-3 bg-amber-500/10 border border-amber-500/30 rounded-lg"
+            className="mt-4 p-3 bg-gradient-to-r from-purple-600/20 to-cyan-600/20 border border-purple-500/40 rounded-lg"
           >
-            <p className="text-xs text-amber-400 font-semibold">All generations used. Upgrade to continue!</p>
+            <p className="text-xs font-semibold text-purple-300">All free generations used. Unlock unlimited content →</p>
           </motion.div>
         )}
 
@@ -75,9 +75,9 @@ export function CreditsDisplay({ used, limit, plan }: CreditsDisplayProps) {
           <motion.div
             initial={{ opacity: 0, y: -5 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mt-4 p-3 bg-purple-500/10 border border-purple-500/30 rounded-lg"
+            className="mt-4 p-3 bg-gradient-to-r from-amber-600/20 to-orange-600/20 border border-amber-500/40 rounded-lg"
           >
-            <p className="text-xs text-purple-400 font-semibold">1 generation left. Time to upgrade?</p>
+            <p className="text-xs font-semibold text-amber-300">⚡ Last free generation. Upgrade for unlimited →</p>
           </motion.div>
         )}
       </div>

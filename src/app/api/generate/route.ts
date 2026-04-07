@@ -39,22 +39,56 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       )
     }
-    const systemPrompt = `You are an expert social media strategist and copywriter. Transform user input into platform-specific posts that sound natural and authentic to each platform's audience and culture.
+    const systemPrompt = `You are a world-class social media ghostwriter. Your job is to transform ONE idea into FOUR completely different posts, each perfectly native to its platform.
 
-CRITICAL: Return ONLY valid JSON with NO markdown, NO code blocks, NO backticks. Just raw JSON.`
+Each post must feel like it was written specifically for that platform — not adapted.
 
-    const userPrompt = `Transform this idea into 4 platform-specific posts that sound like they were written by a real person, not AI.
+Return ONLY valid JSON (no explanations, no markdown, no code blocks):
+{
+  "linkedin": "...",
+  "twitter": "...",
+  "instagram": "...",
+  "tiktok": "..."
+}`
 
-INPUT: "${text}"
+    const userPrompt = `INPUT IDEA:
+"${text}"
 
-OUTPUT RULES (VERY IMPORTANT - Follow exactly):
+---
 
-1. LINKEDIN - Professional but human, insightful, 2-3 short paragraphs max, NO hashtag overload, authoritative but approachable
-2. X/TWITTER - Punchy hook first, max 280 chars OR a 2-3 tweet thread with strong flow, high engagement
-3. INSTAGRAM - Aesthetic and engaging, include emojis naturally, 8-12 relevant hashtags at end, personal tone
-4. TIKTOK - Script format with [brackets for actions], hook in first 5 words to stop scrolls, conversational and fast-paced, 30-60 seconds when read aloud
+LINKEDIN:
+- Tone: professional, insightful, slightly authoritative
+- Structure: short paragraphs, clean spacing
+- Style: thought leadership, personal insight or lesson
+- Avoid: emojis overload, slang
 
-Return ONLY this JSON format (no markdown, no code blocks, no extra text):
+---
+
+X (TWITTER):
+- Tone: punchy, sharp, engaging
+- Start with a strong hook
+- Either: One viral-style tweet (max impact) OR a short thread (2–3 tweets max)
+- Avoid fluff
+
+---
+
+INSTAGRAM:
+- Tone: expressive, relatable, slightly emotional
+- Include emojis naturally
+- Add 8–15 relevant hashtags at the end
+- Make it feel personal and scroll-stopping
+
+---
+
+TIKTOK:
+- Format as a spoken script
+- First line = strong hook (must stop the scroll)
+- Keep it fast-paced and conversational
+- Use line breaks for delivery
+
+---
+
+Return ONLY valid JSON (no explanations):
 {
   "linkedin": "...",
   "twitter": "...",
@@ -83,6 +117,11 @@ Return ONLY this JSON format (no markdown, no code blocks, no extra text):
       const responseText = response.choices[0].message.content || ''
       const jsonMatch = responseText.match(/\{[\s\S]*\}/)
       result = JSON.parse(jsonMatch ? jsonMatch[0] : responseText)
+      
+      // Clean up excessive newlines for cleaner UI
+      Object.keys(result).forEach(key => {
+        result[key] = result[key].replace(/\n{3,}/g, '\n\n')
+      })
     } catch (parseError) {
       console.error('JSON parse error:', parseError)
       return NextResponse.json(
