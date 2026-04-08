@@ -2,10 +2,9 @@
 
 import Link from 'next/link'
 import { useUser } from '@clerk/nextjs'
-import { Navigation } from '@/components/Navigation'
-import { Footer } from '@/components/Footer'
 import { motion } from 'framer-motion'
-import { ArrowRight, Sparkles, Zap, Users, Gauge } from 'lucide-react'
+import { ArrowRight, Sparkles, Zap, Users, Gauge, Menu, X } from 'lucide-react'
+import { useState } from 'react'
 
 const features = [
   {
@@ -81,10 +80,41 @@ const faqs = [
 
 export default function Home() {
   const { user } = useUser()
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-purple-950/20">
-      <Navigation />
+      {/* Navigation */}
+      <nav className="sticky top-0 z-50 border-b border-purple-500/10 bg-background/80 backdrop-blur-xl">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+          <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
+            PostMultiplied
+          </Link>
+          
+          <div className="hidden md:flex items-center gap-8">
+            <Link href="/pricing" className="text-foreground/70 hover:text-foreground transition">Pricing</Link>
+            <Link href="/how-it-works" className="text-foreground/70 hover:text-foreground transition">How It Works</Link>
+            <Link href="/gallery" className="text-foreground/70 hover:text-foreground transition">Gallery</Link>
+            
+            {user ? (
+              <Link href="/dashboard" className="px-6 py-2 bg-gradient-to-r from-purple-600 to-cyan-600 rounded-full text-white font-semibold hover:shadow-lg transition">
+                Dashboard
+              </Link>
+            ) : (
+              <>
+                <Link href="/sign-in" className="text-foreground/70 hover:text-foreground transition">Sign In</Link>
+                <Link href="/sign-up" className="px-6 py-2 bg-gradient-to-r from-purple-600 to-cyan-600 rounded-full text-white font-semibold hover:shadow-lg transition">
+                  Get Started
+                </Link>
+              </>
+            )}
+          </div>
+
+          <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden">
+            {mobileMenuOpen ? <X /> : <Menu />}
+          </button>
+        </div>
+      </nav>
 
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-6">
@@ -378,7 +408,44 @@ export default function Home() {
         </div>
       </section>
 
-      <Footer />
+      <footer className="border-t border-purple-500/10 bg-background/40 backdrop-blur-xl py-12 px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-4 gap-8 mb-8">
+            <div>
+              <h3 className="font-bold text-lg mb-4">PostMultiplied</h3>
+              <p className="text-foreground/60 text-sm">Transform your ideas into platform-perfect social media content.</p>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">Product</h4>
+              <ul className="space-y-2 text-sm text-foreground/60">
+                <li><Link href="/pricing" className="hover:text-foreground transition">Pricing</Link></li>
+                <li><Link href="/how-it-works" className="hover:text-foreground transition">How It Works</Link></li>
+                <li><Link href="/gallery" className="hover:text-foreground transition">Gallery</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">Company</h4>
+              <ul className="space-y-2 text-sm text-foreground/60">
+                <li><Link href="/contact" className="hover:text-foreground transition">Contact</Link></li>
+                <li><Link href="/privacy" className="hover:text-foreground transition">Privacy</Link></li>
+                <li><Link href="/terms" className="hover:text-foreground transition">Terms</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">Connect</h4>
+              <ul className="space-y-2 text-sm text-foreground/60">
+                <li>Twitter</li>
+                <li>LinkedIn</li>
+                <li>GitHub</li>
+              </ul>
+            </div>
+          </div>
+          <div className="border-t border-purple-500/10 pt-8 flex justify-between items-center text-sm text-foreground/60">
+            <p>&copy; 2026 PostMultiplied. All rights reserved.</p>
+            <p>Made in the UK with love</p>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
