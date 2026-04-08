@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 
+export default function HowItWorks() {
   const steps = [
     {
       number: '1',

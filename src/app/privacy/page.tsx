@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 
+export default function Privacy() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-purple-950/20">
       <div className="pt-32 pb-20 px-6">
