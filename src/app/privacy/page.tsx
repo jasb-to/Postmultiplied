@@ -2,10 +2,6 @@
 
 import { motion } from 'framer-motion'
 
-export const metadata = {
-  title: 'Privacy Policy | PostMultiplied',
-  description: 'PostMultiplied privacy policy. Learn how we protect your data.',
-}
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-purple-950/20">
       <div className="pt-32 pb-20 px-6">

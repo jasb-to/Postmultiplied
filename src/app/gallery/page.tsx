@@ -4,10 +4,6 @@ import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Loader } from 'lucide-react'
 
-export const metadata = {
-  title: 'Gallery | PostMultiplied',
-  description: 'Explore content generated with PostMultiplied. See how our AI transforms ideas into posts.',
-}
   const [items, setItems] = useState<GalleryItem[]>([])
   const [isLoading, setIsLoading] = useState(true)
 

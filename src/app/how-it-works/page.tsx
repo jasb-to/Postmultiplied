@@ -3,10 +3,6 @@
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 
-export const metadata = {
-  title: 'How It Works | PostMultiplied',
-  description: 'Learn how PostMultiplied transforms your ideas into platform-specific social media content.',
-}
   const steps = [
     {
       number: '1',

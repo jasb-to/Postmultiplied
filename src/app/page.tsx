@@ -6,11 +6,6 @@ import { motion } from 'framer-motion'
 import { ArrowRight, Sparkles, Zap, Users, Gauge, Menu, X } from 'lucide-react'
 import { useState } from 'react'
 
-export const metadata = {
-  title: 'PostMultiplied - Turn 1 Idea Into 4 Perfect Posts | AI Social Media Generator',
-  description: 'AI-powered social media content generator. Transform your ideas into platform-optimized posts for LinkedIn, X, Instagram, and TikTok in seconds. Free to start, no credit card required.',
-}
-
 const features = [
   {
     icon: Sparkles,
