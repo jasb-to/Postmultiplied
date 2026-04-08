@@ -1,7 +1,5 @@
 'use client'
 
-import { Navigation } from '@/components/Navigation'
-import { Footer } from '@/components/Footer'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 
@@ -37,11 +35,12 @@ const pricingTiers = [
   }
 ]
 
-export default function Pricing() {
+export const metadata = {
+  title: 'Pricing | PostMultiplied - Affordable Social Media Content Generation',
+  description: 'Simple, transparent pricing for AI-powered social media content. Start free, upgrade when you need more generations.',
+}
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-purple-950/20">
-      <Navigation />
-      
       <div className="pt-32 pb-20 px-6">
         <div className="max-w-6xl mx-auto">
           <motion.div
@@ -175,8 +174,6 @@ export default function Pricing() {
           </motion.div>
         </div>
       </div>
-
-      <Footer />
     </div>
   )
 }

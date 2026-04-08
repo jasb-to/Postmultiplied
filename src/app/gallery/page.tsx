@@ -1,24 +1,13 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Navigation } from '@/components/Navigation'
-import { Footer } from '@/components/Footer'
 import { motion } from 'framer-motion'
 import { Loader } from 'lucide-react'
 
-interface GalleryItem {
-  id: string
-  posts?: {
-    input_text: string
-    linkedin?: string
-    twitter?: string
-    instagram?: string
-    tiktok?: string
-  }
-  created_at: string
+export const metadata = {
+  title: 'Gallery | PostMultiplied',
+  description: 'Explore content generated with PostMultiplied. See how our AI transforms ideas into posts.',
 }
-
-export default function Gallery() {
   const [items, setItems] = useState<GalleryItem[]>([])
   const [isLoading, setIsLoading] = useState(true)
 
@@ -42,8 +31,6 @@ export default function Gallery() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-purple-950/20">
-      <Navigation />
-      
       <div className="pt-32 pb-20 px-6">
         <div className="max-w-6xl mx-auto">
           <motion.div
@@ -113,8 +100,6 @@ export default function Gallery() {
           )}
         </div>
       </div>
-
-      <Footer />
     </div>
   )
 }

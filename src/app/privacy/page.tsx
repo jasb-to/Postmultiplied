@@ -1,14 +1,13 @@
 'use client'
 
-import { Navigation } from '@/components/Navigation'
-import { Footer } from '@/components/Footer'
 import { motion } from 'framer-motion'
 
-export default function Privacy() {
+export const metadata = {
+  title: 'Privacy Policy | PostMultiplied',
+  description: 'PostMultiplied privacy policy. Learn how we protect your data.',
+}
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-purple-950/20">
-      <Navigation />
-      
       <div className="pt-32 pb-20 px-6">
         <div className="max-w-3xl mx-auto">
           <motion.div
@@ -68,8 +67,6 @@ export default function Privacy() {
           </motion.div>
         </div>
       </div>
-
-      <Footer />
     </div>
   )
 }

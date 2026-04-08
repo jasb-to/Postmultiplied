@@ -7,9 +7,23 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
 
 export const metadata: Metadata = {
-  title: 'PostMultiplied - AI Social Media Content Generator',
-  description: 'Turn 1 idea into 4 platform-optimized posts in seconds. LinkedIn, X, Instagram, TikTok.',
-  keywords: ['AI', 'Social Media', 'Content Generation', 'Marketing', 'UK'],
+  title: 'PostMultiplied - AI Social Media Content Generator | Create Posts in Seconds',
+  description: 'Turn 1 idea into 4 platform-optimized social media posts in seconds. AI-powered content for LinkedIn, X, Instagram, and TikTok. Start free today.',
+  keywords: ['AI content generator', 'social media posts', 'LinkedIn content', 'Twitter content', 'Instagram posts', 'TikTok scripts', 'AI marketing', 'content creation tool', 'UK'],
+  authors: [{ name: 'PostMultiplied' }],
+  openGraph: {
+    type: 'website',
+    locale: 'en_GB',
+    url: 'https://postmultiplied.com',
+    title: 'PostMultiplied - AI Social Media Content Generator',
+    description: 'Turn 1 idea into 4 platform-optimized posts in seconds',
+    siteName: 'PostMultiplied',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'PostMultiplied - AI Social Media Content Generator',
+    description: 'Transform your ideas into platform-perfect social media content',
+  },
 }
 
 export const viewport: Viewport = {

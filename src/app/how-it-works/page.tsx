@@ -1,11 +1,12 @@
 'use client'
 
-import { Navigation } from '@/components/Navigation'
-import { Footer } from '@/components/Footer'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 
-export default function HowItWorks() {
+export const metadata = {
+  title: 'How It Works | PostMultiplied',
+  description: 'Learn how PostMultiplied transforms your ideas into platform-specific social media content.',
+}
   const steps = [
     {
       number: '1',
@@ -31,8 +32,6 @@ export default function HowItWorks() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-purple-950/20">
-      <Navigation />
-      
       <div className="pt-32 pb-20 px-6">
         <div className="max-w-4xl mx-auto">
           <motion.div
@@ -138,8 +137,6 @@ export default function HowItWorks() {
           </motion.div>
         </div>
       </div>
-
-      <Footer />
     </div>
   )
 }

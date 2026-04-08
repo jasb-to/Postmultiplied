@@ -6,6 +6,11 @@ import { motion } from 'framer-motion'
 import { ArrowRight, Sparkles, Zap, Users, Gauge, Menu, X } from 'lucide-react'
 import { useState } from 'react'
 
+export const metadata = {
+  title: 'PostMultiplied - Turn 1 Idea Into 4 Perfect Posts | AI Social Media Generator',
+  description: 'AI-powered social media content generator. Transform your ideas into platform-optimized posts for LinkedIn, X, Instagram, and TikTok in seconds. Free to start, no credit card required.',
+}
+
 const features = [
   {
     icon: Sparkles,
@@ -122,7 +127,7 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.3 }}
             className="text-center mb-12"
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-600/10 border border-purple-500/20 rounded-full mb-6">
@@ -159,7 +164,7 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
+            transition={{ duration: 0.4, delay: 0.1 }}
             className="relative mt-16"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-cyan-600/20 rounded-2xl blur-3xl" />
